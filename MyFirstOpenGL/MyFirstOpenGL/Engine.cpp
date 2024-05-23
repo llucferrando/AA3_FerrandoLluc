@@ -5,7 +5,7 @@ Engine::Engine()
 {
 }
 
-Model* Engine::LoadOBJModel(int IDProgram, const std::string& filePath, const char* texturefilePath, GLenum textureUnit, ModelType type)
+Model* Engine::LoadOBJModel(int IDProgram,const std::string& filePath, const char* texturefilePath, const std::string& matFilePath,GLenum textureUnit, ModelType type)
 {
 	//Verifico archivo y si no puedo abrirlo cierro aplicativo
 	std::ifstream file(filePath);
@@ -115,7 +115,7 @@ Model* Engine::LoadOBJModel(int IDProgram, const std::string& filePath, const ch
 		}
 	}
 
-	return new Model(IDProgram, texturefilePath, vertexs, textureCoordinates, vertexNormal, textureUnit, type);
+	return new Model(IDProgram, texturefilePath, matFilePath, vertexs, textureCoordinates, vertexNormal, textureUnit, type);
 }
 
 void Engine::Init()
@@ -133,12 +133,6 @@ void Engine::Update(GLFWwindow* window)
 	float currentFrameTime = static_cast<float>(glfwGetTime());
 	deltaTime = currentFrameTime - lastFrameTime;
 	lastFrameTime = currentFrameTime;
-
-	std::cout << yaw<<std::endl;
-	std::cout << pitch<< std::endl;
-	std::cout << lastX<< std::endl; // Cambia según la resolución de tu ventan
-	std::cout << lastY<< std::endl; // Cambia según la resolución de tu ventana
-	std::cout << firstMouse<< std::endl;
 
 }
 

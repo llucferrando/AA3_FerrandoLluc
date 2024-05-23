@@ -1,9 +1,9 @@
 #include "Camera.h"
 #include "Engine.h"
 
-Camera::Camera() : _fFov(45.0f), _aspectRatio(1.0), _fNear(0.1), _fFar(100.0)
+Camera::Camera() : _fFov(45.0f), _aspectRatio(1.0), _fNear(0.1), _fFar(20000.0)
 {
-	_position = { 0.f,1.5f,-5.f };
+	_position = { 0.f,2.f,-5.f };
 	_rotation = { 0.f,0.f,0.f };
 	_localVectorUp = { 0.f,1.f,0.f };
 	_vectorFront = { 0.f,0.f,1.f };
@@ -29,16 +29,16 @@ void Camera::LookAt()
 
 void Camera::InputsLogic(GLFWwindow* window)
 {
-	const float _speed = 0.05f;
+	const float _speed = 0.5f;
 	_speed* Engine::getInstance().getDeltaTime();
 
 	if (Engine::getInstance().getKeyWPressed())
 	{
-		_position.z += _speed;
+		_position += _speed*_vectorFront;
 	}
 	if (Engine::getInstance().getKeySPressed())
 	{
-		_position.z -= _speed;
+		_position -= _speed*_vectorFront;
 	}
 	if (Engine::getInstance().getKeyAPressed())
 	{

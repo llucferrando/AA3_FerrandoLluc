@@ -5,6 +5,7 @@ void Texture::InitializeTexture(const char* filePath, GLenum _textureUnit)
 {
     int width, height, nrChannels;
     unsigned char* textureInfo = stbi_load(filePath, &width, &height, &nrChannels, 0);
+    
     //Definimos canal de textura activo
     glActiveTexture(_textureUnit);
 

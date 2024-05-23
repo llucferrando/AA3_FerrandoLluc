@@ -2,7 +2,7 @@
 #include <iostream>
 #include "stb_image.h"
 #include <GL/glew.h> 
-#include <vector>
+
 
 class Texture
 {

@@ -1,5 +1,5 @@
 #include "ProgramManager.h"
-
+#include "Model.h"
 ProgramManager::ProgramManager()
 {
 	myFirstProgram = new ShaderProgram; mySecondProgram = new ShaderProgram; myThirdProgram = new ShaderProgram; myFourthProgram = new ShaderProgram; myFifthProgram = new ShaderProgram;

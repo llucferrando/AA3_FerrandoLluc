@@ -4,7 +4,11 @@ void GenerateTroll();
 
 void GenerateRocks();
 
-void GenerateCube();
+void GenerateLandscape();
+
+void GenerateDesertRocks();
+
+void GenerateLandscapeDesert();
 
 void mouse_global_callback(GLFWwindow* window);
 

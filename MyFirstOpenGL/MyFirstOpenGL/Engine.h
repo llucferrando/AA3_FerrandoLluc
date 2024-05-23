@@ -10,7 +10,7 @@ public:
 	Engine();
 
 	//Functions utils
-	Model* LoadOBJModel(int IDProgram, const std::string& filePath, const char* texturefilePath, GLenum textureUnit, ModelType type);
+	Model* LoadOBJModel(int IDProgram, const std::string& filePath, const char* texturefilePath, const std::string& matFilePath,GLenum textureUnit, ModelType type);
 	void Init();
 	void Update(GLFWwindow* window);
 	void InputTransforms(GLFWwindow* window);

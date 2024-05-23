@@ -8,6 +8,7 @@ in vec3 normalsGeometryShader[];
 
 out vec2 uvsFragmentShader;
 out vec3 normalsFragmentShader;
+out vec4 primitivePosition;
 
 uniform mat4 translationMatrix;
 uniform mat4 rotationMatrix;

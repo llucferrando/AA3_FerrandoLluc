@@ -59,6 +59,10 @@ void main() {
 
 	glEnable(GL_DEPTH_TEST);
 
+	glEnable(GL_BLEND);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 
 	
 	
@@ -68,13 +72,15 @@ void main() {
 		Engine::getInstance().Init();
 	
 		//Cargo Modelos
-		GenerateCube();
-		GenerateTroll();
-		GenerateRocks();
-		GenerateClouds();
+		GenerateLandscape();
+		//GenerateTroll();
+		//GenerateRocks();
+		//GenerateClouds();
+		GenerateDesertRocks();
+	
 
 		//Definimos color para limpiar el buffer de color
-		glClearColor(0.251f, 0.878f, 0.816f, 1.0f);
+		glClearColor(5.0f, 186.f, 152.f, 1.0f);
 
 		//Definimos modo de dibujo para cada cara
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -92,7 +98,7 @@ void main() {
 			Engine::getInstance().Update(window);
 			Camera::getInstance().Update(window);
 
-			
+
 			//Render models
 			for (Model *model : models)
 			{
@@ -126,102 +132,42 @@ void main() {
 
 }
 
+void GenerateDesertRocks()
+{
+	Model* rock1; 
+	rock1 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock/rock_bc.png", "Assets/Materials/rock.mtl",GL_TEXTURE0, ModelType::Rock);
+	rock1->_position = glm::vec3{ 0.f,0.f,0.f };
+	rock1->_rotation = glm::vec3{ 0.f,0.f,0.f };
+	rock1->_scale = glm::vec3{ 1.f,1.f,1.f };
+
+	models.push_back(rock1);
+}
+
+
+
 
 
 //Generating models logic
-void GenerateCube()
+void GenerateLandscape()
 {
 	//Floor with orange texture using porgram 0
-	Model* cube1;
-	cube1 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/cube.obj", "Assets/Textures/cube.png", GL_TEXTURE2, ModelType::Cube);
-	cube1->_position = glm::vec3{ 0.f,-.1f,5.5f };
-	cube1->_rotation = glm::vec3{ 90.f,0.f,0.f };
-	cube1->_scale = glm::vec3{ 5.f,5.f,.1f };
-	models.push_back(cube1);
-}
-
-
-
-void GenerateRocks()
-{
-
-	//Rocks with its texture using porgram 0
-	Model* rock1; Model* rock2; Model* rock3; Model* rock4; Model* rock5;
-	rock1 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock.png", GL_TEXTURE1, ModelType::Rock);
-	rock1->_position = glm::vec3{0.7f,0.5f,4.5f};
-	rock1->_rotation = glm::vec3{ 90.f,0.f,35.f };
-	rock1->_scale = glm::vec3{ .6f,1.f,.7f };
-	models.push_back(rock1); 
-
-	rock2 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock.png", GL_TEXTURE1, ModelType::Rock);
-	rock2->_position = glm::vec3{-.7f,0.5f,4.5f};
-	rock2->_rotation = glm::vec3{90.f,0.f,-35.f };
-	rock2->_scale = glm::vec3{ .6f,1.f,.7f };
-	models.push_back(rock2); 
-
-	rock3 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock.png", GL_TEXTURE1, ModelType::Rock);
-	rock3->_position = glm::vec3{.7f,0.5f,3.f};
-	rock3->_rotation = glm::vec3{ 90.f,0.f,-35.f };
-	rock3->_scale = glm::vec3{ .6f,1.f,.7f };
-	models.push_back(rock3);
-
-	rock4 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock.png", GL_TEXTURE1, ModelType::Rock);
-	rock4->_position = glm::vec3{-.7f,0.5f,3.f};
-	rock4->_rotation = glm::vec3{ 90.f,0.f,35.f };
-	rock4->_scale = glm::vec3{ .6f,1.f,.7f };
-	models.push_back(rock4);
-
+	Model* landscape;
+	landscape = Engine::getInstance().LoadOBJModel(0, "Assets/Models/landscape.obj", "Assets/Textures/landscape/sand_albedo.jpeg","Assets/Materials/landscape.mtl", GL_TEXTURE1, ModelType::Landscape);
+	landscape->_position = glm::vec3{ 0.f,0.f,5.f };
+	landscape->_rotation = glm::vec3{ 0.f,0.f,0.f };
+	landscape->_scale = glm::vec3{ 1.f,1.f,1.f };
 	
-
-	
-}
-
-void GenerateTroll()
-{
-	//Troll with its texture using porgram 1. Using a blue colour fragment shader modifcator
-	Model* troll1; Model* troll3; Model* troll2; Model* troll4;
-
-	troll1 = Engine::getInstance().LoadOBJModel(1, "Assets/Models/troll.obj", "Assets/Textures/troll.png", GL_TEXTURE0, ModelType::Troll);
-	troll1->_position = glm::vec3{ -3.f,0.f,3.f };
-	troll1->_rotation = glm::vec3{ 0.f,90.f,0.f };
-	troll1->_scale = glm::vec3{ 1.f,1.f,1.f };
-	models.push_back(troll1);
-
-	//Troll with its texture using porgram 2. Using a green colour fragment shader modifcator
-	troll2 = Engine::getInstance().LoadOBJModel(2, "Assets/Models/troll.obj", "Assets/Textures/troll.png", GL_TEXTURE0, ModelType::Troll);
-	troll2->_position = glm::vec3{ 3.f,0.f,3.f };
-	troll2->_rotation = glm::vec3{ 0.f,-90.f,0.f };
-	troll2->_scale = glm::vec3{ 1.f,1.f,1.f };
-	models.push_back(troll2);
-
-	
-	//Troll with its texture using porgram 0 
-	troll3 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/troll.obj", "Assets/Textures/troll.png", GL_TEXTURE0, ModelType::Troll);
-	troll3->_position = glm::vec3{ 0.f,0.f,6.f };
-	troll3->_rotation = glm::vec3{ 0.f,180.f,0.f };
-	troll3->_scale = glm::vec3{ 1.f,1.f,1.f };
-	models.push_back(troll3);
+	models.push_back(landscape);
 
 }
 
 
 
-void GenerateClouds()
-{
-	//Clouds using rock geometry and its texture. Using porgram 3 to 
-	Model* cloud1; Model* cloud2;
-	cloud1 = Engine::getInstance().LoadOBJModel(3, "Assets/Models/rock.obj", "Assets/Textures/rock.png", GL_TEXTURE1, ModelType::Rock);
-	cloud1->_position = glm::vec3{ 2.f,3.f,3.f };
-	cloud1->_rotation = glm::vec3{ 90.f,0.f,90.f };
-	cloud1->_scale = glm::vec3{ .6f,1.f,.7f };
-	models.push_back(cloud1);
 
-	cloud2 = Engine::getInstance().LoadOBJModel(3, "Assets/Models/rock.obj", "Assets/Textures/rock.png", GL_TEXTURE1, ModelType::Rock);
-	cloud2->_position = glm::vec3{ -2.f,3.f,7.f };
-	cloud2->_rotation = glm::vec3{ 90.f,0.f,90.f };
-	cloud2->_scale = glm::vec3{ .6f,1.f,.7f };
-	models.push_back(cloud2);
-}
+
+
+
+
 
 
 
