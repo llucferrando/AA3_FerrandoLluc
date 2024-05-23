@@ -1,7 +1,6 @@
 #include "Engine.h"
 
 Engine::Engine()
-	: yaw(-90.0f), pitch(0.0f), lastX(400), lastY(300), firstMouse(true), deltaTime(0.0f), lastFrameTime(0.0f)
 {
 }
 
@@ -120,78 +119,22 @@ Model* Engine::LoadOBJModel(int IDProgram,const std::string& filePath, const cha
 
 void Engine::Init()
 {
-	//Initializing time
-	lastFrameTime = static_cast<float>(glfwGetTime());
+	inputManager = new InputManager();
+	timeManager = new TimeManager();
 }
 
 void Engine::Update(GLFWwindow* window)
 {
-	InputTransforms(window);
-	
+	timeManager->HandleTime();
 
-	//Delta time update
-	float currentFrameTime = static_cast<float>(glfwGetTime());
-	deltaTime = currentFrameTime - lastFrameTime;
-	lastFrameTime = currentFrameTime;
+	inputManager->HandleInputs(window);
 
+	Camera::getInstance().Update(window);
+
+	//Render
 }
 
-void Engine::InputTransforms(GLFWwindow* window)
-{
-	keyWPressed = false;
-	keyAPressed = false;
-	keySPressed = false;
-	keyDPressed = false;
 
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS ) {
-		keyWPressed = true;
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		keyAPressed = true;
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		keySPressed = true;
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		keyDPressed = true;
-	}
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	
-	
-	
-}
-void Engine::mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-	if (firstMouse)
-	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
-	}
-
-	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos;
-	lastX = xpos;
-	lastY = ypos;
-
-	float sensitivity = 0.1f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch += yoffset;
-
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 direction;
-	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = sin(glm::radians(pitch));
-	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	Camera::getInstance().setVectorFront(glm::normalize(direction));
-}
 
 
 

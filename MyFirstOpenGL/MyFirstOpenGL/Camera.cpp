@@ -1,24 +1,21 @@
 #include "Camera.h"
 #include "Engine.h"
 
-Camera::Camera() : _fFov(45.0f), _aspectRatio(1.0), _fNear(0.1), _fFar(20000.0)
+Camera::Camera() : _fFov(45.0f), _aspectRatio(1.0), _fNear(0.1), _fFar(20000.0),_speed(200)
 {
 	_position = { 0.f,2.f,-5.f };
 	_rotation = { 0.f,0.f,0.f };
 	_localVectorUp = { 0.f,1.f,0.f };
 	_vectorFront = { 0.f,0.f,1.f };
-
-
 }
 
 void Camera::Update(GLFWwindow* window)
 {
-	
 	//Inputs logic function, we do the keyoard and mouse updates
-	InputsLogic(window);
+	UpdateCamPosition(window);
 	//Function that does the camera view function 
 	LookAt();
-	
+
 }
 
 void Camera::LookAt()
@@ -27,67 +24,25 @@ void Camera::LookAt()
 	MatrixView(_viewMatrix);
 }
 
-void Camera::InputsLogic(GLFWwindow* window)
+void Camera::UpdateCamPosition(GLFWwindow* window)
 {
-	const float _speed = 0.5f;
-	_speed* Engine::getInstance().getDeltaTime();
-
-	if (Engine::getInstance().getKeyWPressed())
+	float tempMultiplier = _speed * Engine::getInstance().getTimeManager()->getDeltaTime();
+	if (Engine::getInstance().getInputManager()->IsWPressed())
 	{
-		_position += _speed*_vectorFront;
+		_position += tempMultiplier * _vectorFront;
 	}
-	if (Engine::getInstance().getKeySPressed())
+	if (Engine::getInstance().getInputManager()->IsSPressed())
 	{
-		_position -= _speed*_vectorFront;
+		_position -= tempMultiplier *_vectorFront;
 	}
-	if (Engine::getInstance().getKeyAPressed())
+	if (Engine::getInstance().getInputManager()->IsAPressed())
 	{
-		_position -= glm::normalize(glm::cross(_vectorFront, _localVectorUp)) * _speed;
+		_position -= glm::normalize(glm::cross(_vectorFront, _localVectorUp)) * tempMultiplier;
 	}
-	if (Engine::getInstance().getKeyDPressed())
+	if (Engine::getInstance().getInputManager()->IsDPressed())
 	{
-		_position += glm::normalize(glm::cross(_vectorFront, _localVectorUp)) * _speed;
+		_position += glm::normalize(glm::cross(_vectorFront, _localVectorUp)) * tempMultiplier;
 	}
-
-	//Mouse inputs
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
-		Camera::getInstance().mouse_callback(window, xpos, ypos);
-		});
-
-}
-void Camera:: mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-	
-	if (_firstMouse)
-	{
-		_lastX = xpos;
-		_lastY = ypos;
-		_firstMouse = false;
-	}
-
-	float xoffset = xpos - _lastX;
-	float yoffset = _lastY - ypos;
-	_lastX = xpos;
-	_lastY = ypos;
-
-	float sensitivity = 0.1f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	_yaw += xoffset;
-	_pitch += yoffset;
-
-	if (_pitch > 89.0f)
-		_pitch = 89.0f;
-	if (_pitch < -89.0f)
-		_pitch = -89.0f;
-
-	glm::vec3 direction;
-	direction.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-	direction.y = sin(glm::radians(_pitch));
-	direction.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-	_vectorFront = glm::normalize(direction);
 }
 
 glm::mat4 Camera::MatrixView(glm::mat4 viewMat)

@@ -22,8 +22,7 @@ void Resize_Window(GLFWwindow* window, int iFrameBufferWidth, int iFrameBufferHe
 
 
 
-void main() {
-	
+void main() {	
 	
 	//Definir semillas del rand según el tiempo
 	srand(static_cast<unsigned int>(time(NULL)));
@@ -62,10 +61,7 @@ void main() {
 	glEnable(GL_BLEND);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
-	
-	
+		
 	
 	//Inicializamos GLEW y controlamos errores
 	if (glewInit() == GLEW_OK) {
@@ -94,16 +90,13 @@ void main() {
 			//Limpiamos los buffers
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-			//We call engine update (inputs,deltatime...)
+			// Updates time, inputs and camera
 			Engine::getInstance().Update(window);
-			Camera::getInstance().Update(window);
-
 
 			//Render models
 			for (Model *model : models)
 			{
 				model->Render(Camera::getInstance().getViewMatrix());
-
 			}
 			
 			//Cambiamos buffers

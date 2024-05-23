@@ -17,6 +17,7 @@ public:
 	float getfFar() const { return _fFar; }
 	float getXPos() const { return _position.x; }
 	float getYPos() const { return _position.y; }
+	glm::vec3 getVectorFront() const { return _vectorFront; }
 
 	
 	glm::mat4 getViewMatrix() const { return _viewMatrix; }
@@ -37,24 +38,18 @@ public:
 
 	void Update(GLFWwindow* window);
 	void LookAt();
-	void InputsLogic(GLFWwindow* window);
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void UpdateCamPosition(GLFWwindow* window);
 	glm::mat4 MatrixView(glm::mat4 viewMat);
 
 private:
 	Camera(const Camera&) = delete;
 	void operator=(const Camera&) = delete;
 
-	float _yaw;
-	float _pitch;
-	float _lastX;
-	float _lastY;
-	bool _firstMouse;
-
 	float _fFov;
 	float _aspectRatio;
 	float _fNear;
 	float _fFar;
+	const float _speed;
 	
 	
 
