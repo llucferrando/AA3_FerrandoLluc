@@ -8,6 +8,8 @@ void GenerateLandscape();
 
 void GenerateDesertRocks();
 
+void CreateSun();
+
 void GenerateLandscapeDesert();
 
 void mouse_global_callback(GLFWwindow* window);
