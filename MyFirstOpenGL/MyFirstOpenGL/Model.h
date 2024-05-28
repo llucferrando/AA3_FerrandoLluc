@@ -10,7 +10,7 @@
 #define WINDOW_HEIGHT 880
 
 
-enum ModelType { Rock = 0, Landscape = 1 };
+enum ModelType { Rock = 0, Landscape, PalmTree, Plants, Sun, Moon };
 
 class Model {
 public:

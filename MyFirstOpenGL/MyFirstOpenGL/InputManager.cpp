@@ -7,6 +7,7 @@ InputManager::InputManager()
 	aPressed = false;
 	sPressed = false;
 	dPressed = false;
+	fPressed = false;
 
 }
 
@@ -22,6 +23,7 @@ void InputManager::UpdateInputs(GLFWwindow* window)
 	aPressed = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 	sPressed = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
 	dPressed = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
+	fPressed = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
 }
 
 void InputManager::UpdateMouse(GLFWwindow* window)

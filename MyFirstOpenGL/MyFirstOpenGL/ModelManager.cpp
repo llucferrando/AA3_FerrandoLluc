@@ -18,8 +18,11 @@ ModelManager::~ModelManager()
 void ModelManager::GenerateModels()
 {
 	models.push_back(LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock/rock_bc.png", "Assets/Materials/rock.mtl", GL_TEXTURE0, ModelType::Rock));
-
 	models.push_back(LoadOBJModel(0, "Assets/Models/landscape.obj", "Assets/Textures/landscape/sand_albedo.jpeg", "Assets/Materials/landscape.mtl", GL_TEXTURE1, ModelType::Landscape));
+	models.push_back(LoadOBJModel(0, "Assets/Models/palmtree.obj", "Assets/Textures/palmtree.png", "Assets/Materials/palmtree.mtl", GL_TEXTURE2, ModelType::PalmTree));
+	models.push_back(LoadOBJModel(0, "Assets/Models/plants.obj", "Assets/Textures/plants.png", "Assets/Materials/plants.mtl", GL_TEXTURE3, ModelType::Plants));
+	models.push_back(LoadOBJModel(1, "Assets/Models/sun.obj", "Assets/Textures/sun.png", "Assets/Materials/sun.mtl", GL_TEXTURE4, ModelType::Sun));
+	models.push_back(LoadOBJModel(1, "Assets/Models/sun.obj", "Assets/Textures/moon.png", "Assets/Materials/sun.mtl", GL_TEXTURE5, ModelType::Moon));
 }
 
 Model* ModelManager::GetModelByType(ModelType type)

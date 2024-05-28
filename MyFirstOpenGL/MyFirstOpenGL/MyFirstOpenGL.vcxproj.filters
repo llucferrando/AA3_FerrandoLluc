@@ -69,6 +69,18 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="MeteoObjectsManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MyFirstVertexShader.glsl">
@@ -77,7 +89,7 @@
     <None Include="MyFirstGeometryShader.glsl">
       <Filter>Shaders\Geometry Shader</Filter>
     </None>
-    <None Include="MyFirstFragmentShader.glsl">
+    <None Include="AffectLightObj.glsl">
       <Filter>Shaders\Fragment Shader</Filter>
     </None>
     <None Include="MyGreenFragmentShader.glsl">
@@ -86,7 +98,7 @@
     <None Include="MyBlueFragmentShader.glsl">
       <Filter>Shaders\Fragment Shader</Filter>
     </None>
-    <None Include="MyWhiteFragmentShader.glsl">
+    <None Include="NonAffectLightObj.glsl">
       <Filter>Shaders\Fragment Shader</Filter>
     </None>
     <None Include="SecondGeometryShader.glsl">
@@ -131,6 +143,18 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="MeteoObjectsManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

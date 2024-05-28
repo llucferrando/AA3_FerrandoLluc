@@ -2,26 +2,18 @@
 #include "Model.h"
 ProgramManager::ProgramManager()
 {
-	myFirstProgram = new ShaderProgram; mySecondProgram = new ShaderProgram; myThirdProgram = new ShaderProgram; myFourthProgram = new ShaderProgram; myFifthProgram = new ShaderProgram;
+	myFirstProgram = new ShaderProgram; mySecondProgram = new ShaderProgram;
 	myFirstProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
 	myFirstProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
-	myFirstProgram->fragmentShader = LoadFragmentShader("MyFirstFragmentShader.glsl");
+	myFirstProgram->fragmentShader = LoadFragmentShader("AffectLightObj.glsl");
 	compiledPrograms.push_back(CreateProgram(*myFirstProgram));
 
 	mySecondProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
 	mySecondProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
-	mySecondProgram->fragmentShader = LoadFragmentShader("MyBlueFragmentShader.glsl");
+	mySecondProgram->fragmentShader = LoadFragmentShader("NonAffectLightObj.glsl");
 	compiledPrograms.push_back(CreateProgram(*mySecondProgram));
 
-	myThirdProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	myThirdProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
-	myThirdProgram->fragmentShader = LoadFragmentShader("MyGreenFragmentShader.glsl");
-	compiledPrograms.push_back(CreateProgram(*myThirdProgram));
 
-	myFourthProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	myFourthProgram->geometryShader = LoadGeometryShader("SecondGeometryShader.glsl");
-	myFourthProgram->fragmentShader = LoadFragmentShader("MyWhiteFragmentShader.glsl");
-	compiledPrograms.push_back(CreateProgram(*myFourthProgram));
 
 
 	

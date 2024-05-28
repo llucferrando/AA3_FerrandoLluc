@@ -77,6 +77,7 @@ public:
 	bool IsAPressed() { return aPressed; }
 	bool IsSPressed() { return sPressed; }
 	bool IsDPressed() { return dPressed; }
+	bool IsFPressed() { return fPressed; }
 
 	// Setters
 
@@ -89,6 +90,7 @@ private:
 	bool aPressed;
 	bool sPressed;
 	bool dPressed;
+	bool fPressed;
 };
 
 

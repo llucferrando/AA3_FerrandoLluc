@@ -3,20 +3,25 @@
 #include "Texture.h"
 
 
-namespace Utils
+class Utils
 {
- 
-	GLuint CreateProgram(const ShaderProgram& shaders);
-	Model LoadOBJModel( int programID, const std::string& filePath, const char* texturefilePath);
-	glm::mat4 GenerateTranslationMatrix(glm::vec3 translation);
-	glm::mat4 GenerateRotationMatrix(glm::vec3 axis, float fDegrees);
-	glm::mat4 GenerateScaleMatrix(glm::vec3 scaleAxis);
-	std::string Load_File(const std::string& filePath);
-	GLuint LoadFragmentShader(const std::string& filePath);
-	GLuint LoadGeometryShader(const std::string& filePath);
-	GLuint LoadVertexShader(const std::string& filePath);
-	float GetElapsedTime();
+public:
+	//Singleton to call from everywhere
+	static Utils& getInstance() { static Utils instance; return instance; }
+	Utils();
 
+    static float RandomNumber(float min, float max);
+    static int RandomNumber(int min, int max);
+	glm::vec3 OrbitRotation(glm::vec3 pos);
+
+	static glm::vec3 SpawnRandomPoint(std::vector<glm::vec3>& positions);
+
+
+
+private:
+	Utils(const Utils&) = delete;
+	Utils& operator=(const Utils&) = delete;
 };
+
 
 
