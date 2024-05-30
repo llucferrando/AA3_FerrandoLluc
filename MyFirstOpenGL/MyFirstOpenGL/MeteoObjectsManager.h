@@ -1,10 +1,7 @@
 #pragma once
 #include "MeshRenderer.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm.hpp>
-#include <gtc/type_ptr.hpp>
-#include <gtc/matrix_transform.hpp>
+#include "DayNightCycleManager.h"
+
 
 
 class MeteoObjectsManager
@@ -23,6 +20,7 @@ private:
 	GameObject* _moon;
 	Transform* _sunTransform;
 	Transform* _moonTransform;
+	DayNightCycleManager* _cycleManager;
 	float _timeElapsed;
 
 };

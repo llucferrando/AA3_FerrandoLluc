@@ -4,6 +4,7 @@
 MeteoObjectsManager::MeteoObjectsManager()
 {
 	InitObjects();
+	_cycleManager = new DayNightCycleManager();
 }
 
 void MeteoObjectsManager::Update()
@@ -11,7 +12,7 @@ void MeteoObjectsManager::Update()
 
 	_timeElapsed += Engine::getInstance().getTimeManager()->getDeltaTime();
 
-	float cycleDuration = 20.0f;
+	float cycleDuration = 40.0f;
 	float timeRatio = _timeElapsed / cycleDuration;
 	float angle = timeRatio * glm::two_pi<float>();
 
@@ -27,12 +28,22 @@ void MeteoObjectsManager::Update()
 	_sunTransform->_position = glm::vec3(sunX, sunY, sunZ);
 	_moonTransform->_position = glm::vec3(moonX, moonY, moonZ);
 
+	// Calcula el valor de interpolación entre 0 y 1
 	float interpolationValue = 0.5f * (1.0f + cos(angle));
+
+	// Utiliza clamp para asegurarse de que el valor de interpolación esté dentro del rango [0, 1]
 	interpolationValue = glm::clamp(interpolationValue, 0.0f, 1.0f);
-	glm::vec3 colorDay(0.0f, 0.0f, 0.1f);       
-	glm::vec3 colorNight(1.0f, 1.0f, 0.7f);     
+
+	// Define los colores de día y noche
+	glm::vec3 colorDay(0.0f, 0.0f, 0.3f);        // Azul oscuro
+	glm::vec3 colorNight(1.0f, 1.0f, 0.7f);      // Amarillo claro
+
+	// Interpolación lineal entre los dos colores
 	glm::vec3 interpolatedColor = glm::mix(colorDay, colorNight, interpolationValue);
+
+	// Actualiza el color de fondo
 	glClearColor(interpolatedColor.r, interpolatedColor.g, interpolatedColor.b, 1.0f);
+	
 
 }
 

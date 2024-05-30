@@ -4,7 +4,7 @@
 Camera::Camera() : _fFov(45.0f), _aspectRatio(1.0), _fNear(0.1), _fFar(20000.0),_speed(500)
 {
 	_transform = GetComponent<Transform>();
-	_transform->_position = { 0.f,2.f,-5.f };
+	_transform->_position = { 0.f,154.f,-5.f };
 	_transform->_rotation = { 0.f,0.f,0.f };
 	_transform->_localVectorUp = { 0.f,1.f,0.f };
 	_transform->_vectorFront = { 0.f,0.f,1.f };
