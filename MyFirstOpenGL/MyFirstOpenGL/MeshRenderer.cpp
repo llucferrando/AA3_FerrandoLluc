@@ -22,7 +22,7 @@ void MeshRenderer::Render(glm::mat4 view)
     glm::mat4 projection = glm::perspective(Camera::getInstance().getfFov(), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, Camera::getInstance().getfNear(), Camera::getInstance().getfFar());
     
  
-
+    
 
     glUniform2f(glGetUniformLocation(myProgram, "windowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
     glUniform1i(glGetUniformLocation(myProgram, "textureSampler"), (int)_model->GetType());

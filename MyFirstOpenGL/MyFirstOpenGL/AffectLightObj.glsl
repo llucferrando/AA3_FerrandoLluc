@@ -1,6 +1,8 @@
-#version 440 core
+ #version 440 core
 struct Light{
-    
+    vec3 position;
+    vec3 direction;
+
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -38,15 +40,17 @@ void main() {
     vec4 baseColor = texture(textureSampler, adjustedTexCoord);
 
      //CAM LIGHT
-    /*vec3 lightDirectionCam = normalize(camPosition - normalsFragmentShader);
-    vec3 lightPosToFragment = normalize(primitivePosition.xyz - camPosition);
+    vec3 lightDirectionCam = normalize(camPosition - normalsFragmentShader);
+    vec3 lightPosToFragment = normalize(camDirection - camPosition);
     vec3 lanternIntensity = vec3(0.0f);
     float camLightAngle = dot(lightDirectionCam, normalize(-camDirection));
+    
     if(camLightAngle > outerCutOff){
         float epsilon = (cutOff - outerCutOff);
         float intensity = clamp((camLightAngle-outerCutOff)/epsilon,0.0,1.0);
-        lanternIntensity = effectiveAmbient + (diffuse * intensity * attenuation);
-    }*/
+        //float distance = length(vec3(0.0,0.0,5.0), camDirection);
+        lanternIntensity = (diffuse * intensity);
+    }
 
     //SUN LIGHT
     vec3 sourceLight = vec3(0.0, 25.0, 0);
@@ -77,7 +81,7 @@ void main() {
         lightIntensity2 = (diffuse * sourceLightAngle2 * attenuation2 * ambienceDark);
     }
 
-   vec3 finalColor = lightIntensity + lightIntensity2;
+   vec3 finalColor = lightIntensity + lightIntensity2 + lanternIntensity;
 
     fragColor = vec4(baseColor.rgb * finalColor, opacity);
 }

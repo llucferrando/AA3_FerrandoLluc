@@ -1,6 +1,7 @@
 #pragma once
 #include "MeshRenderer.h"
 #include "DayNightCycleManager.h"
+#include "Light.h"
 
 
 
