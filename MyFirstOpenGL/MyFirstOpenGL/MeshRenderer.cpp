@@ -32,15 +32,14 @@ void MeshRenderer::Render(glm::mat4 view)
     glUniformMatrix4fv(glGetUniformLocation(myProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(glGetUniformLocation(myProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-    if (Engine::getInstance().getInputManager()->IsFPressed()) {
-        
-    }
+   
     glUniform3fv(glGetUniformLocation(myProgram, "sunPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetSunPos()));
     glUniform3fv(glGetUniformLocation(myProgram, "moonPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetMoonPos()));
     glUniform3fv(glGetUniformLocation(myProgram, "camPosition"), 1, glm::value_ptr(Camera::getInstance().GetComponent<Transform>()->_position));
     glUniform3fv(glGetUniformLocation(myProgram, "camDirection"), 1, glm::value_ptr(Camera::getInstance().GetComponent<Transform>()->_vectorFront));
     glUniform1f(glGetUniformLocation(myProgram, "cutOff"), glm::cos(glm::radians(12.5f)));
     glUniform1f(glGetUniformLocation(myProgram, "outerCutOff"), glm::cos(glm::radians(17.5f)));
+    glUniform1i(glGetUniformLocation(myProgram, "lanternOn"), Engine::getInstance().getInputManager()->IsLanternOn());
 
     const Material& material = *_model->GetMaterial();
 
