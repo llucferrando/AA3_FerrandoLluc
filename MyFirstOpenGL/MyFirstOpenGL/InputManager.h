@@ -77,8 +77,10 @@ public:
 	bool IsAPressed() { return aPressed; }
 	bool IsSPressed() { return sPressed; }
 	bool IsDPressed() { return dPressed; }
+	bool IsFPressed() { return fPressed; }
+	bool IsLanternOn() { return lanternOn; }
 
-	// Setters
+
 
 private:
 	Mouse* mouse;
@@ -89,6 +91,9 @@ private:
 	bool aPressed;
 	bool sPressed;
 	bool dPressed;
+	bool fPressed;
+	bool fKeyPressedLastFrame;
+	bool lanternOn;
 };
 
 
