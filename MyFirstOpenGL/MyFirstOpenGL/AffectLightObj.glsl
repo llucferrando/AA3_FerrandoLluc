@@ -20,6 +20,7 @@ uniform vec3 sunPosition;
 uniform vec3 moonPosition;
 uniform vec3 camPosition;
 uniform vec3 camDirection;
+uniform vec3 ambientLandscape;
 uniform float cutOff;
 uniform float outerCutOff;
 uniform bool lanternOn;
@@ -55,9 +56,10 @@ void main() {
     float quadratic = 0.000002;  // Reduced quadratic attenuation
     float attenuation = 1.0 / (constant + linear * distance + quadratic * distance * distance);
     vec3 lightIntensity = vec3(0.f);
+    
 
     if(lightDirection.y > 0.0){
-        lightIntensity = attenuation + (diffuse * sourceLightAngle * ambient);
+        lightIntensity = attenuation + (diffuse * sourceLightAngle * ambient) +  ambientLandscape;
     }
 
     // MOON LIGHT
@@ -65,14 +67,14 @@ void main() {
     float sourceLightAngle2 = max(dot(normalsFragmentShader, lightDirection2), 0.0);
     float distance2 = length(moonPosition - primitivePosition.xyz);
     float constant2 = 1.0;
-    float linear2 = 0.000000007;  // Reduced linear attenuation
-    float quadratic2 = 0.0000002; // Reduced quadratic attenuation
+    float linear2 = 0.0000007;  // Reduced linear attenuation
+    float quadratic2 = 0.000002; // Reduced quadratic attenuation
     float attenuation2 = 1.0 / (constant2 + linear2 * distance2 + quadratic2 * distance2 * distance2);
     vec3 ambienceDark = ambient * 0.15f;
     vec3 lightIntensity2 = vec3(0.f);
 
     if(lightDirection2.y > 0.0){
-        lightIntensity2 = diffuse * sourceLightAngle2 * attenuation2 * ambienceDark;
+        lightIntensity2 = attenuation2 + (diffuse * sourceLightAngle2 * ambienceDark) + ambientLandscape;
     }
     
 

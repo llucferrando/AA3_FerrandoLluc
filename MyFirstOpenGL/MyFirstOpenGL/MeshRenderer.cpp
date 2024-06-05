@@ -46,6 +46,9 @@ void MeshRenderer::Render(glm::mat4 view)
     glUniform1f(glGetUniformLocation(myProgram, "opacity"), material.opacity);
     glUniform3fv(glGetUniformLocation(myProgram, "ambient"), 1, glm::value_ptr(material.ambient));
     glUniform3fv(glGetUniformLocation(myProgram, "diffuse"), 1, glm::value_ptr(material.diffuse));
+    //Ambient color extra
+    glUniform3fv(glGetUniformLocation(myProgram, "ambientLandscape"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetInterpolatedColor()));
+
 
     //Vinculo su VAO para ser usado
     glBindVertexArray(_model->GetVAO());

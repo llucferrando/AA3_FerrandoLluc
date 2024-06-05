@@ -56,9 +56,9 @@ void MeteoObjectsManager::Update()
 
 	float interpolationValue = fmod(timeRatio * (colors.size() - 1), 1.0f);
 
-	glm::vec3 interpolatedColor = glm::mix(colors[colorIndex1], colors[colorIndex2], interpolationValue);
+	_interpolatedColor = glm::mix(colors[colorIndex1], colors[colorIndex2], interpolationValue);
 
-	glClearColor(interpolatedColor.r, interpolatedColor.g, interpolatedColor.b, 1.0f);
+	glClearColor(_interpolatedColor.r, _interpolatedColor.g, _interpolatedColor.b, 1.0f);
 
 	
 	
