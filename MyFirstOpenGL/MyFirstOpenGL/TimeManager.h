@@ -7,9 +7,11 @@ public:
 	void HandleTime();
 
 	float getDeltaTime() { return deltaTime; };
+	float GetElapsedTime() { return _elapsedTime; };
 
 private:
 	float deltaTime;
 	float lastFrameTime;
+	float _elapsedTime;
 };
 

@@ -17,7 +17,7 @@ void MeteoObjectsManager::Update()
 	float angle = timeRatio * glm::two_pi<float>();
 
 	const float radius = 1500.0f;
-	float sunY = sin(angle) * radius; // Ajuste para que comience en y=0
+	float sunY = sin(angle) * radius; 
 	float sunZ = cos(angle) * radius;
 	float moonY = sin(angle + glm::pi<float>()) * radius;
 	float moonZ = cos(angle + glm::pi<float>()) * radius;
@@ -28,35 +28,15 @@ void MeteoObjectsManager::Update()
 	_sunTransform->_position = glm::vec3(sunX, sunY, sunZ);
 	_moonTransform->_position = glm::vec3(moonX, moonY, moonZ);
 
-	std::vector<glm::vec3> colors = {
 
-	   glm::vec3(0.9f, 0.6f, 0.3f), // Mañana
-	   glm::vec3(0.8f, 1.0f, 1.0f), // Mediodía
-	   glm::vec3(0.7f, 0.9f, 1.0f), // Tarde
-	   glm::vec3(0.9f, 0.4f, 0.2f), // Atardecer
-	   glm::vec3(0.8f, 0.3f, 0.1f), // Atardecer más oscuro
-	   glm::vec3(0.6f, 0.2f, 0.0f), // Atardecer más oscuro
-	   glm::vec3(0.4f, 0.1f, 0.0f), // Anochecer
-	   glm::vec3(0.2f, 0.05f, 0.0f),// Anochecer más oscuro
-	   glm::vec3(0.0f, 0.1f, 0.3f), // Noche
-	   glm::vec3(0.0f, 0.05f, 0.25f),// Noche más oscuro
-	   glm::vec3(0.0f, 0.1f, 0.6f), // Noche
-	   glm::vec3(0.0f, 0.1f, 0.7f), // Noche
-	   glm::vec3(0.0f, 0.2f, 0.4f), // Amanecer más oscuro
-	   glm::vec3(0.1f, 0.3f, 0.5f), // Amanecer
-	   glm::vec3(0.2f, 0.4f, 0.6f), // Amanecer
-	   glm::vec3(0.3f, 0.5f, 0.7f), // Amanecer
-	   glm::vec3(0.4f, 0.6f, 0.8f), // Amanecer
-	   glm::vec3(0.5f, 0.7f, 0.9f), // Amanecer
-	   glm::vec3(0.6f, 0.8f, 1.0f), // Amanecer
-	};
+	float segmentDuration = cycleDuration / _cycleManager->_colours.size();
+	float segmentRatio = fmod(Engine::getInstance().getTimeManager()->GetElapsedTime(), segmentDuration) / segmentDuration;
 
-	int colorIndex1 = static_cast<int>(floor(timeRatio * (colors.size() - 1)));
-	int colorIndex2 = (colorIndex1 + 1) % colors.size();
+	int currentSegment = static_cast<int>(fmod(Engine::getInstance().getTimeManager()->GetElapsedTime(), cycleDuration) / segmentDuration);
+	int nextSegment = (currentSegment + 1) % _cycleManager->_colours.size();
 
-	float interpolationValue = fmod(timeRatio * (colors.size() - 1), 1.0f);
-
-	_interpolatedColor = glm::mix(colors[colorIndex1], colors[colorIndex2], interpolationValue);
+	_interpolatedColor = glm::mix(_cycleManager->_colours[currentSegment], _cycleManager->_colours[nextSegment], segmentRatio);
+	_interpolatedColor = glm::vec3(_interpolatedColor.r / 255.f, _interpolatedColor.g / 255.f, _interpolatedColor.b / 255.f);
 
 	glClearColor(_interpolatedColor.r, _interpolatedColor.g, _interpolatedColor.b, 1.0f);
 
