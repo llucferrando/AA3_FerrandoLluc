@@ -17,5 +17,6 @@ private:
 	GameObject* _owner;
 	Model* _model;
 	Transform* _transform;
+	glm::vec3 _lightPositions[2];
 };
 

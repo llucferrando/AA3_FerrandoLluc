@@ -33,8 +33,15 @@ void MeshRenderer::Render(glm::mat4 view)
     glUniformMatrix4fv(glGetUniformLocation(myProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
    
-    glUniform3fv(glGetUniformLocation(myProgram, "sunPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetSunPos()));
-    glUniform3fv(glGetUniformLocation(myProgram, "moonPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetMoonPos()));
+    //glUniform3fv(glGetUniformLocation(myProgram, "sunPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetSunPos()));
+    //glUniform3fv(glGetUniformLocation(myProgram, "moonPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetMoonPos()));
+    glm::vec3 lightPositions[2] = {
+        Engine::getInstance().GetMeteoManager()->GetSunPos(),
+        Engine::getInstance().GetMeteoManager()->GetMoonPos()
+    };
+    
+    glUniform3fv(glGetUniformLocation(myProgram, "lightPositions"), 2, glm::value_ptr(lightPositions[0]));
+
     glUniform3fv(glGetUniformLocation(myProgram, "camPosition"), 1, glm::value_ptr(Camera::getInstance().GetComponent<Transform>()->_position));
     glUniform3fv(glGetUniformLocation(myProgram, "camDirection"), 1, glm::value_ptr(Camera::getInstance().GetComponent<Transform>()->_vectorFront));
     glUniform1f(glGetUniformLocation(myProgram, "cutOff"), glm::cos(glm::radians(12.5f)));

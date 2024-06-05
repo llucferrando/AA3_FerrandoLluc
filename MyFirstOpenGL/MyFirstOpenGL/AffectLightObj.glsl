@@ -1,23 +1,12 @@
 #version 440 core
 
-struct Light{
-    vec3 position;
-    vec3 direction;
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-    float constant;
-    float linear;
-    float quadratic;
-};
 
 uniform vec2 windowSize;
 uniform sampler2D textureSampler;
 uniform float opacity;
 uniform vec3 ambient;
 uniform vec3 diffuse;
-uniform vec3 sunPosition;
-uniform vec3 moonPosition;
+uniform vec3 lightPositions[2];  
 uniform vec3 camPosition;
 uniform vec3 camDirection;
 uniform vec3 ambientLandscape;
@@ -44,41 +33,31 @@ void main() {
     if(lanternOn && (camLightAngle > outerCutOff)){
         float epsilon = (cutOff - outerCutOff);
         float intensity = clamp((camLightAngle - outerCutOff) / epsilon, 0.0, 1.0);
-        lanternIntensity = diffuse * intensity  * ambient;
+        lanternIntensity = diffuse * intensity * ambient;
     }
 
-    // SUN LIGHT
-    vec3 lightDirection = normalize(sunPosition - primitivePosition.xyz);
-    float sourceLightAngle = max(dot(normalsFragmentShader, lightDirection), 0.0);
-    float distance = length(sunPosition - primitivePosition.xyz);
-    float constant = 1.0;
-    float linear = 0.00007;  // Reduced linear attenuation
-    float quadratic = 0.000002;  // Reduced quadratic attenuation
-    float attenuation = 1.0 / (constant + linear * distance + quadratic * distance * distance);
-    vec3 lightIntensity = vec3(0.f);
-    
-
-    if(lightDirection.y > 0.0){
-        lightIntensity = attenuation + (diffuse * sourceLightAngle * ambient) +  ambientLandscape;
-    }
-
-    // MOON LIGHT
-    vec3 lightDirection2 = normalize(moonPosition - primitivePosition.xyz);
-    float sourceLightAngle2 = max(dot(normalsFragmentShader, lightDirection2), 0.0);
-    float distance2 = length(moonPosition - primitivePosition.xyz);
-    float constant2 = 1.0;
-    float linear2 = 0.0000007;  // Reduced linear attenuation
-    float quadratic2 = 0.000002; // Reduced quadratic attenuation
-    float attenuation2 = 1.0 / (constant2 + linear2 * distance2 + quadratic2 * distance2 * distance2);
+    // SUN AND MOON LIGHT
+    vec3 lightIntensities[2] = vec3[2](vec3(0.0f), vec3(0.0f));
+    float linearAttenuations[2] = float[2](0.00007, 0.0000007);
+    float quadraticAttenuations[2] = float[2](0.000002, 0.000002);
     vec3 ambienceDark = ambient * 0.15f;
-    vec3 lightIntensity2 = vec3(0.f);
 
-    if(lightDirection2.y > 0.0){
-        lightIntensity2 = attenuation2 + (diffuse * sourceLightAngle2 * ambienceDark) + ambientLandscape;
+    for(int i = 0; i < 2; i++) {
+        vec3 lightDirection = normalize(lightPositions[i] - primitivePosition.xyz);
+        float sourceLightAngle = max(dot(normalsFragmentShader, lightDirection), 0.0);
+        float distance = length(lightPositions[i] - primitivePosition.xyz);
+        float constant = 1.0;
+        float linear = linearAttenuations[i];
+        float quadratic = quadraticAttenuations[i];
+        float attenuation = 1.0 / (constant + linear * distance + quadratic * distance * distance);
+        
+        if(lightDirection.y > 0.0) {
+            vec3 currentAmbient = (i == 0) ? ambient : ambienceDark;
+            lightIntensities[i] = attenuation + (diffuse * sourceLightAngle * currentAmbient) + ambientLandscape;
+        }
     }
-    
 
-    vec3 finalColor = lightIntensity + lightIntensity2 + lanternIntensity;
+    vec3 finalColor = lightIntensities[0] + lightIntensities[1] + lanternIntensity;
 
     fragColor = vec4(baseColor.rgb * finalColor, opacity);
 }
