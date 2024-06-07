@@ -24,7 +24,6 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Light.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
@@ -42,11 +41,10 @@
   <ItemGroup>
     <None Include="MyBlueFragmentShader.glsl" />
     <None Include="AffectLightObj.glsl" />
-    <None Include="MyFirstGeometryShader.glsl" />
-    <None Include="MyFirstVertexShader.glsl" />
+    <None Include="MainGeometryShader.glsl" />
+    <None Include="MainVertexShader.glsl" />
     <None Include="MyGreenFragmentShader.glsl" />
     <None Include="NonAffectLightObj.glsl" />
-    <None Include="SecondGeometryShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -55,7 +53,6 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="Light.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeshRenderer.h" />

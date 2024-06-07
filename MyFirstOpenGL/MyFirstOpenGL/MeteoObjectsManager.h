@@ -1,7 +1,7 @@
 #pragma once
 #include "MeshRenderer.h"
 #include "ColorPalette.h"
-#include "Light.h"
+
 
 
 

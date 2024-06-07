@@ -10,7 +10,7 @@ MeshRenderer::MeshRenderer(Model* model, GameObject* owner) : _owner(owner), _mo
 
 void MeshRenderer::Render(glm::mat4 view)
 {
-    // Verificar si _model es válido
+   
     GLuint myProgram = ProgramManager::getInstance().compiledPrograms[_model->GetProgramID()];
     glUseProgram(myProgram);
 
@@ -21,9 +21,6 @@ void MeshRenderer::Render(glm::mat4 view)
     glm::mat4 scaleMatrix = ProgramManager::getInstance().GenerateScaleMatrix(_transform->_scale);
     glm::mat4 projection = glm::perspective(Camera::getInstance().getfFov(), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, Camera::getInstance().getfNear(), Camera::getInstance().getfFar());
     
- 
-    
-
     glUniform2f(glGetUniformLocation(myProgram, "windowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
     glUniform1i(glGetUniformLocation(myProgram, "textureSampler"), (int)_model->GetType());
     glUniformMatrix4fv(glGetUniformLocation(myProgram, "translationMatrix"), 1, GL_FALSE, glm::value_ptr(translationMatrix));
@@ -32,20 +29,16 @@ void MeshRenderer::Render(glm::mat4 view)
     glUniformMatrix4fv(glGetUniformLocation(myProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(glGetUniformLocation(myProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-   
-    //glUniform3fv(glGetUniformLocation(myProgram, "sunPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetSunPos()));
-    //glUniform3fv(glGetUniformLocation(myProgram, "moonPosition"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetMoonPos()));
     glm::vec3 lightPositions[2] = {
         Engine::getInstance().GetMeteoManager()->GetSunPos(),
         Engine::getInstance().GetMeteoManager()->GetMoonPos()
     };
     
     glUniform3fv(glGetUniformLocation(myProgram, "lightPositions"), 2, glm::value_ptr(lightPositions[0]));
-
     glUniform3fv(glGetUniformLocation(myProgram, "camPosition"), 1, glm::value_ptr(Camera::getInstance().getCameraPos()));
     glUniform3fv(glGetUniformLocation(myProgram, "camDirection"), 1, glm::value_ptr(Camera::getInstance().getVectorFront()));
-    glUniform1f(glGetUniformLocation(myProgram, "cutOff"), glm::cos(glm::radians(12.5f)));
-    glUniform1f(glGetUniformLocation(myProgram, "outerCutOff"), glm::cos(glm::radians(17.5f)));
+    glUniform1f(glGetUniformLocation(myProgram, "innerCutOff"), glm::cos(glm::radians(10.5f)));
+    glUniform1f(glGetUniformLocation(myProgram, "outerCutOff"), glm::cos(glm::radians(20.5f)));
     glUniform1i(glGetUniformLocation(myProgram, "lanternOn"), Engine::getInstance().getInputManager()->IsLanternOn());
 
     const Material& material = *_model->GetMaterial();

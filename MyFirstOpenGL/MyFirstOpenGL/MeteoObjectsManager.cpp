@@ -50,13 +50,13 @@ void MeteoObjectsManager::InitObjects()
 	_sunTransform->_direction = glm::vec3{ 0.f,0.f,0.f };
 	_sunTransform->_rotation = glm::vec3{ 0.f,0.f,0.f };
 	_sunTransform->_scale = glm::vec3{ 5.f,5.f,5.f };
-	_sun->AddComponent<Light>(_sun,_sunTransform->_position,_sunTransform->_direction);
+
 
 	_moon->AddComponent<MeshRenderer>(new Model(*Engine::getInstance().GetModelManager()->GetModelByType(ModelType::Moon)), _moon);
 	_moonTransform->_position = glm::vec3{ -1500.f,0.f,0.f };
 	_moonTransform->_direction = glm::vec3{ 0.f,0.f,0.f };
 	_moonTransform->_rotation = glm::vec3{ 0.f,0.f,0.f };
 	_moonTransform->_scale = glm::vec3{ 5.f,5.f,5.f };
-	_moon->AddComponent<Light>(_moon,_moonTransform->_position,_moonTransform->_direction);
+
 	
 }

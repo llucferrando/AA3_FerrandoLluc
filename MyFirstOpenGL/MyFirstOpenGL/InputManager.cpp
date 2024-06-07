@@ -25,12 +25,12 @@ void InputManager::UpdateInputs(GLFWwindow* window)
 	dPressed = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
 	fPressed = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
 
-	bool isFPressedNow = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
-	if (isFPressedNow && !fKeyPressedLastFrame)
+	
+	if (fPressed && !fKeyPressedLastFrame)
 	{
 		lanternOn = !lanternOn;
 	}
-	fKeyPressedLastFrame = isFPressedNow;
+	fKeyPressedLastFrame = fPressed;
 }
 
 void InputManager::UpdateMouse(GLFWwindow* window)
