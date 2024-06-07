@@ -75,9 +75,6 @@
     <ClCompile Include="MapManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="MeteoObjectsManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -86,10 +83,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MyFirstVertexShader.glsl">
+    <None Include="MainVertexShader.glsl">
       <Filter>Shaders\Vertex Shader</Filter>
     </None>
-    <None Include="MyFirstGeometryShader.glsl">
+    <None Include="MainGeometryShader.glsl">
       <Filter>Shaders\Geometry Shader</Filter>
     </None>
     <None Include="AffectLightObj.glsl">
@@ -103,9 +100,6 @@
     </None>
     <None Include="NonAffectLightObj.glsl">
       <Filter>Shaders\Fragment Shader</Filter>
-    </None>
-    <None Include="SecondGeometryShader.glsl">
-      <Filter>Shaders\Geometry Shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +146,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="MapManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="MeteoObjectsManager.h">

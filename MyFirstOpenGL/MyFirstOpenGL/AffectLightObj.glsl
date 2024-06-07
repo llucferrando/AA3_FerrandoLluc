@@ -9,8 +9,8 @@ uniform vec3 lightPositions[2];
 uniform vec3 camPosition;
 uniform vec3 camDirection;
 uniform vec3 ambientLandscape;
-uniform float innerCutOff; // Inner angle
-uniform float outerCutOff; // Outer angle
+uniform float innerCutOff; 
+uniform float outerCutOff; 
 uniform bool lanternOn;
 
 in vec2 uvsFragmentShader;
@@ -20,17 +20,16 @@ in vec4 primitivePosition;
 out vec4 fragColor;
 
 void main() {
+
     vec2 adjustedTexCoord = vec2(uvsFragmentShader.x, 1.0 - uvsFragmentShader.y);
     vec4 baseColor = texture(textureSampler, adjustedTexCoord);
 
     vec3 lanternIntensity = vec3(0.0f);
     vec3 lightDir = normalize(camPosition - primitivePosition.xyz); 
     float theta = dot(lightDir, normalize(-camDirection));
-
     float constantAtt = 1.0;
     float linearAtt = 0.00000000009;
     float quadraticAtt = 0.0000032;
-
     if(lanternOn) {
         if(theta > outerCutOff) {
             float epsilon = innerCutOff - outerCutOff;
@@ -41,7 +40,6 @@ void main() {
         }
     }
 
-    // SUN AND MOON LIGHT
     vec3 lightIntensities[2] = vec3[2](vec3(0.0f), vec3(0.0f));
     float linearAttenuations[2] = float[2](0.00007, 0.0000007);
     float quadraticAttenuations[2] = float[2](0.000002, 0.000002);
@@ -63,6 +61,5 @@ void main() {
     }
 
     vec3 finalColor = lightIntensities[0] + lightIntensities[1] + lanternIntensity;
-
     fragColor = vec4(baseColor.rgb * finalColor, opacity);
 }

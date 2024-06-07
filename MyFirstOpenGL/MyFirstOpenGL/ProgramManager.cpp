@@ -3,20 +3,16 @@
 ProgramManager::ProgramManager()
 {
 	myFirstProgram = new ShaderProgram; mySecondProgram = new ShaderProgram;
-	myFirstProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	myFirstProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
+	myFirstProgram->vertexShader = LoadVertexShader("MainVertexShader.glsl");
+	myFirstProgram->geometryShader = LoadGeometryShader("MainGeometryShader.glsl");
 	myFirstProgram->fragmentShader = LoadFragmentShader("AffectLightObj.glsl");
 	compiledPrograms.push_back(CreateProgram(*myFirstProgram));
 
-	mySecondProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	mySecondProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
+	mySecondProgram->vertexShader = LoadVertexShader("MainVertexShader.glsl");
+	mySecondProgram->geometryShader = LoadGeometryShader("MainGeometryShader.glsl");
 	mySecondProgram->fragmentShader = LoadFragmentShader("NonAffectLightObj.glsl");
 	compiledPrograms.push_back(CreateProgram(*mySecondProgram));
 
-
-
-
-	
 }
 
 //Funcion que genera una smatriz de traslación
