@@ -42,8 +42,8 @@ void MeshRenderer::Render(glm::mat4 view)
     
     glUniform3fv(glGetUniformLocation(myProgram, "lightPositions"), 2, glm::value_ptr(lightPositions[0]));
 
-    glUniform3fv(glGetUniformLocation(myProgram, "camPosition"), 1, glm::value_ptr(Camera::getInstance().GetComponent<Transform>()->_position));
-    glUniform3fv(glGetUniformLocation(myProgram, "camDirection"), 1, glm::value_ptr(Camera::getInstance().GetComponent<Transform>()->_vectorFront));
+    glUniform3fv(glGetUniformLocation(myProgram, "camPosition"), 1, glm::value_ptr(Camera::getInstance().getCameraPos()));
+    glUniform3fv(glGetUniformLocation(myProgram, "camDirection"), 1, glm::value_ptr(Camera::getInstance().getVectorFront()));
     glUniform1f(glGetUniformLocation(myProgram, "cutOff"), glm::cos(glm::radians(12.5f)));
     glUniform1f(glGetUniformLocation(myProgram, "outerCutOff"), glm::cos(glm::radians(17.5f)));
     glUniform1i(glGetUniformLocation(myProgram, "lanternOn"), Engine::getInstance().getInputManager()->IsLanternOn());
@@ -54,7 +54,7 @@ void MeshRenderer::Render(glm::mat4 view)
     glUniform3fv(glGetUniformLocation(myProgram, "ambient"), 1, glm::value_ptr(material.ambient));
     glUniform3fv(glGetUniformLocation(myProgram, "diffuse"), 1, glm::value_ptr(material.diffuse));
     //Ambient color extra
-    glUniform3fv(glGetUniformLocation(myProgram, "ambientLandscape"), 1, glm::value_ptr(Engine::getInstance().GetMeteoManager()->GetInterpolatedColor()));
+    glUniform3fv(glGetUniformLocation(myProgram, "ambientLandscape"), 1, glm::value_ptr(Engine::getInstance().GetDayNightManager()->GetInterpolatedColor()));
 
 
     //Vinculo su VAO para ser usado

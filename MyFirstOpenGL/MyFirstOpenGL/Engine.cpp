@@ -11,7 +11,7 @@ void Engine::Init()
 	_modelManager = new ModelManager();
 	_mapManager = new MapManager();
 	_meteoObjManager = new MeteoObjectsManager();
-
+	_dayNightCycleManager = new ColorPalette();
 	_mapManager->InitMap();
 
 }
@@ -23,6 +23,8 @@ void Engine::Update(GLFWwindow* window)
 	_inputManager->HandleInputs(window);
 
 	_meteoObjManager->Update();
+
+	_dayNightCycleManager->CycleDayNight();
 
 	Camera::getInstance().Update(window);
 }

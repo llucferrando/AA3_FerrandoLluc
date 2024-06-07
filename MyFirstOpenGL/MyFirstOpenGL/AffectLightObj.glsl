@@ -24,15 +24,14 @@ void main() {
     vec2 adjustedTexCoord = vec2(uvsFragmentShader.x, 1.0 - uvsFragmentShader.y);
     vec4 baseColor = texture(textureSampler, adjustedTexCoord);
 
-    // CAM LIGHT (Lantern)
+   
     vec3 lanternIntensity = vec3(0.0f);
-    vec3 lightDirectionCam = normalize(camDirection); // Direction the camera is pointing
-    vec3 fragmentToCam = normalize(camPosition - primitivePosition.xyz); // Direction from fragment to camera
-    float camLightAngle = dot(fragmentToCam, lightDirectionCam);
+    vec3 lightDir = normalize(camPosition - primitivePosition.xyz); 
+    float theta = dot(normalsFragmentShader, normalize(-camDirection));
 
-    if(lanternOn && (camLightAngle > outerCutOff)){
+    if(lanternOn && (theta > cutOff)) {
         float epsilon = (cutOff - outerCutOff);
-        float intensity = clamp((camLightAngle - outerCutOff) / epsilon, 0.0, 1.0);
+        float intensity = clamp((theta - outerCutOff) / epsilon, 0.0, 1.0);
         lanternIntensity = diffuse * intensity * ambient;
     }
 
@@ -57,7 +56,9 @@ void main() {
         }
     }
 
-    vec3 finalColor = lightIntensities[0] + lightIntensities[1] + lanternIntensity;
+
+    //vec3 finalColor = lightIntensities[0] + lightIntensities[1] + lanternIntensity;
+    vec3 finalColor = lanternIntensity;
 
     fragColor = vec4(baseColor.rgb * finalColor, opacity);
 }

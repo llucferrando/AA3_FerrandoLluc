@@ -6,6 +6,7 @@
 #include "MapManager.h"
 #include "MeteoObjectsManager.h"
 
+
 class Engine
 {
 public:
@@ -24,6 +25,7 @@ public:
 	TimeManager* getTimeManager() { return _timeManager; };
 	ModelManager* GetModelManager() { return _modelManager; };
 	MeteoObjectsManager* GetMeteoManager() { return _meteoObjManager; };
+	ColorPalette* GetDayNightManager() { return _dayNightCycleManager; };
 	
 private:
 	InputManager* _inputManager;
@@ -31,6 +33,7 @@ private:
 	ModelManager* _modelManager;
 	MapManager* _mapManager;
 	MeteoObjectsManager* _meteoObjManager;
+	ColorPalette * _dayNightCycleManager;
 	
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;

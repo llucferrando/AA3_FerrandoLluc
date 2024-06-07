@@ -81,7 +81,7 @@
     <ClCompile Include="MeteoObjectsManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="DayNightCycleManager.cpp">
+    <ClCompile Include="ColorPalette.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -160,7 +160,7 @@
     <ClInclude Include="MeteoObjectsManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="DayNightCycleManager.h">
+    <ClInclude Include="ColorPalette.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

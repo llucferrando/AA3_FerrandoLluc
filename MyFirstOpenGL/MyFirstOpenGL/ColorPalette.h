@@ -8,12 +8,16 @@
 #include <gtc/matrix_transform.hpp>
 
 
-class DayNightCycleManager
+class ColorPalette
 {
 public:
-	DayNightCycleManager();
+	ColorPalette();
 	void CycleDayNight();
+	glm::vec3 GetInterpolatedColor() { return _interpolatedColor; }
+
+private:
 	std::vector<glm::vec3> _colours;
+	glm::vec3 _interpolatedColor;
 
 };
 

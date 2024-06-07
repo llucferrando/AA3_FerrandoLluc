@@ -1,6 +1,6 @@
 #pragma once
 #include "MeshRenderer.h"
-#include "DayNightCycleManager.h"
+#include "ColorPalette.h"
 #include "Light.h"
 
 
@@ -14,7 +14,7 @@ public:
 	void RenderObjects(glm::mat4 view);
 	glm::vec3 GetSunPos() { return _sunTransform->_position; }
 	glm::vec3 GetMoonPos() { return _moonTransform->_position; }
-	glm::vec3 GetInterpolatedColor() { return _interpolatedColor; }
+	void ObjectsMovement();
 
 private:
 	void InitObjects();
@@ -22,8 +22,8 @@ private:
 	GameObject* _moon;
 	Transform* _sunTransform;
 	Transform* _moonTransform;
-	DayNightCycleManager* _cycleManager;
-	glm::vec3 _interpolatedColor;
+	ColorPalette* _cycleManager;
+
 	float _timeElapsed;
 
 };
