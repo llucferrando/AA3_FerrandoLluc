@@ -1,6 +1,5 @@
 #version 440 core
 
-
 uniform vec2 windowSize;
 uniform sampler2D textureSampler;
 uniform float opacity;
@@ -10,8 +9,8 @@ uniform vec3 lightPositions[2];
 uniform vec3 camPosition;
 uniform vec3 camDirection;
 uniform vec3 ambientLandscape;
-uniform float cutOff;
-uniform float outerCutOff;
+uniform float innerCutOff; // Inner angle
+uniform float outerCutOff; // Outer angle
 uniform bool lanternOn;
 
 in vec2 uvsFragmentShader;
@@ -24,15 +23,22 @@ void main() {
     vec2 adjustedTexCoord = vec2(uvsFragmentShader.x, 1.0 - uvsFragmentShader.y);
     vec4 baseColor = texture(textureSampler, adjustedTexCoord);
 
-   
     vec3 lanternIntensity = vec3(0.0f);
     vec3 lightDir = normalize(camPosition - primitivePosition.xyz); 
-    float theta = dot(normalsFragmentShader, normalize(-camDirection));
+    float theta = dot(lightDir, normalize(-camDirection));
 
-    if(lanternOn && (theta > cutOff)) {
-        float epsilon = (cutOff - outerCutOff);
-        float intensity = clamp((theta - outerCutOff) / epsilon, 0.0, 1.0);
-        lanternIntensity = diffuse * intensity * ambient;
+    float constantAtt = 1.0;
+    float linearAtt = 0.00000000009;
+    float quadraticAtt = 0.0000032;
+
+    if(lanternOn) {
+        if(theta > outerCutOff) {
+            float epsilon = innerCutOff - outerCutOff;
+            float intensity = smoothstep(outerCutOff, innerCutOff, theta);
+            float distance = length(camPosition - primitivePosition.xyz);
+            float attenuation = 1.0 / (constantAtt + linearAtt * distance + quadraticAtt * distance * distance);
+            lanternIntensity = (diffuse * intensity * ambient) * attenuation;
+        }
     }
 
     // SUN AND MOON LIGHT
@@ -56,9 +62,7 @@ void main() {
         }
     }
 
-
-    //vec3 finalColor = lightIntensities[0] + lightIntensities[1] + lanternIntensity;
-    vec3 finalColor = lanternIntensity;
+    vec3 finalColor = lightIntensities[0] + lightIntensities[1] + lanternIntensity;
 
     fragColor = vec4(baseColor.rgb * finalColor, opacity);
 }
